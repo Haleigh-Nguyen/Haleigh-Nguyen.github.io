@@ -58,23 +58,123 @@
     .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(30px, 3.5vw, 48px); color: var(--text); margin-top: 10px; }
     .section-count { font-size: 11px; color: var(--faint); letter-spacing: 0.1em; }
 
-    /* PROJECTS */
-    #projects { padding-bottom: 0; }
-    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; }
-    .project-card { padding: 36px 48px; border-top: 1px solid var(--line); border-right: 1px solid var(--line); transition: background 0.2s; cursor: pointer; text-decoration: none; color: inherit; display: block; }
-    .project-card:nth-child(even) { border-right: none; }
-    .project-card:hover { background: var(--bg-2); }
-    .project-num { font-size: 11px; color: var(--faint); letter-spacing: 0.12em; margin-bottom: 20px; }
-    .project-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--text); margin-bottom: 10px; line-height: 1.2; }
-    .project-desc { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; max-width: 360px; }
-    .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
-    .tag { font-size: 10px; letter-spacing: 0.08em; padding: 4px 10px; border: 1px solid var(--line); border-radius: 20px; color: var(--faint); }
-    .project-link { font-size: 11px; letter-spacing: 0.1em; color: var(--gold); }
-    .project-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; border-right: none; }
-    .project-card.featured .project-title { font-size: 38px; }
-    .featured-image { background: var(--bg-3); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 11px; letter-spacing: 0.1em; align-self: center; min-height: 200px; }
-    .featured-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* PROJECTS */
+#projects { padding-bottom: 0; }
 
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Base card */
+.project-card {
+  padding: 36px 48px;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  transition: background 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+
+  /* FIX: makes image go to the right */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.project-card:nth-child(even) { border-right: none; }
+
+.project-card:hover { background: var(--bg-2); }
+
+/* Text styles */
+.project-num {
+  font-size: 11px;
+  color: var(--faint);
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+
+.project-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.project-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  max-width: 360px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--faint);
+}
+
+.project-link {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+/* Featured (bigger + full width) */
+.project-card.featured {
+  grid-column: 1 / -1;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  border-right: none;
+}
+
+.project-card.featured .project-title {
+  font-size: 38px;
+}
+
+/* Image styling (for ALL cards now) */
+.project-image {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card,
+  .project-card.featured {
+    grid-template-columns: 1fr;
+  }
+}
     /* SKILLS */
     #skills { padding-bottom: 64px; }
     .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
@@ -425,15 +525,15 @@
   <div id="contact-strip">
     <div class="contact-text">Let's build something <em>together.</em></div>
     <div class="contact-links">
-      <a href="mailto:hello@yourname.com" class="contact-link">hello@yourname.com</a>
-      <a href="https://linkedin.com/in/yourname" target="_blank" class="contact-link">www.linkedin.com/in/haleigh-nguyen</a>
-      <a href="https://github.com/yourusername" target="_blank" class="contact-link">GitHub</a>
+      <a href="mailto:haleigh@lmnts.org" class="contact-link">haleigh@lmnts.org</a>
+      <a href="www.linkedin.com/in/haleigh-nguyen" target="_blank" class="contact-link">LinkedIn</a>
+      <a href="https://github.com/Haleigh-Nguyen" target="_blank" class="contact-link">GitHub</a>
       <a href="resume.pdf" class="contact-link">Résumé ↓</a>
     </div>
   </div>
 
   <footer>
-    <div class="footer-copy">© 2026 Your Name. All rights reserved.</div>
+    <div class="footer-copy">© 2026 Haleigh Nguyen. All rights reserved.</div>
     <div class="footer-made">built with <span>♥</span> · Houston, TX</div>
   </footer>
 
