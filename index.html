@@ -200,7 +200,13 @@
     .about-fact { background: var(--bg); padding: 16px; }
     .fact-label { font-size: 10px; letter-spacing: 0.12em; color: var(--faint); text-transform: uppercase; margin-bottom: 6px; }
     .fact-value { font-size: 13px; color: var(--text); }
-
+    .about-carousel { position: relative; width: 100%; aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; background: var(--bg-3); border: 1px solid var(--line); margin-bottom: 24px; }
+    .carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 0.6s ease; }
+    .carousel-slide.active { opacity: 1; }
+    .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(240,237,230,0.3); cursor: pointer; transition: background 0.2s; }
+    .dot.active { background: var(--gold); }
+      
     /* EXPLORE */
     #explore { border-bottom: none; }
     .explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
@@ -446,50 +452,54 @@
   </section>
 
   <!-- ABOUT -->
-  <section id="about">
-    <div class="about-left fade-in">
-      <div class="section-label">03 — the person</div>
-      <h2 class="section-title">About me</h2>
-      <div class="about-body">
-        <p>
-          Hello, my name is <strong>Haleigh Nguyen</strong> — a Houston-based marketing and strategy professional with a degree in <strong>Management Information Systems</strong> from The University of Texas at Austin, where I also minored in <strong>Marketing</strong>.
-        </p>
-        <p>
-          I spent three years with the <strong>McCombs Summer Institute</strong>, supporting a program that helps ambitious non-business majors earn their business minor over the summer in an intensive program. These days I work as a <strong>Social Media & Marketing Coordinator</strong> at Frontera Leadership Institute, where I help shape how a mission-driven organization tells its story online.
-        </p>
-        <p>
-          I'm drawn to work that sits at the crossroads of <strong>technology, communication, and people</strong> — whether that's building a content strategy, thinking through product, or helping a community find its voice.
-        </p>
-        <p>
-          Outside of work, I love to travel, make things, and explore whatever's caught my attention lately. Check out the pages below to see more of that side of things.
-        </p>
+<section id="about">
+  <div class="about-left fade-in">
+    <div class="section-label">03 — the person</div>
+    <h2 class="section-title">About me</h2>
+    <div class="about-body">
+      <p>
+        Hello, my name is <strong>Haleigh Nguyen</strong> — a Houston-based marketing and strategy professional with a degree in <strong>Management Information Systems</strong> from The University of Texas at Austin, where I also minored in <strong>Marketing</strong>.
+      </p>
+      <p>
+        I spent three years with the <strong>McCombs Summer Institute</strong>, supporting a program that helps ambitious non-business majors earn their business minor over the summer in an intensive program. These days I work as a <strong>Social Media & Marketing Coordinator</strong> at Frontera Leadership Institute, where I help shape how a mission-driven organization tells its story online.
+      </p>
+      <p>
+        I'm drawn to work that sits at the crossroads of <strong>technology, communication, and people</strong> — whether that's building a content strategy, thinking through product, or helping a community find its voice.
+      </p>
+      <p>
+        Outside of work, I love to travel, make things, and explore whatever's caught my attention lately. Check out the pages below to see more of that side of things.
+      </p>
+    </div>
+  </div>
+  <div class="about-right fade-in">
+    <div class="about-carousel">
+      <img src="images/headshot.jpeg" alt="Photo 1" class="carousel-slide active" onerror="this.style.display='none'" />
+      <img src="images/photo2.jpg" alt="Photo 2" class="carousel-slide" onerror="this.style.display='none'" />
+      <div class="carousel-dots">
+        <span class="dot active" onclick="goToSlide(0)"></span>
+        <span class="dot" onclick="goToSlide(1)"></span>
       </div>
     </div>
-    <div class="about-right fade-in">
-      <div class="about-carousel">
-      <img src="Pictures/IMG_1929.jpeg" alt="Photo 1">
-      <img src="images/about2.jpg" alt="Photo 2">
+    <div class="about-facts">
+      <div class="about-fact">
+        <div class="fact-label">Based in</div>
+        <div class="fact-value">Houston, TX</div>
       </div>
-      <div class="about-facts">
-        <div class="about-fact">
-          <div class="fact-label">Based in</div>
-          <div class="fact-value">Houston, TX</div>
-        </div>
-        <div class="about-fact">
-          <div class="fact-label">Education</div>
-          <div class="fact-value">UT Austin '25</div>
-        </div>
-        <div class="about-fact">
-          <div class="fact-label">Degree</div>
-          <div class="fact-value">MIS + Marketing</div>
-        </div>
-        <div class="about-fact">
-          <div class="fact-label">Status</div>
-          <div class="fact-value">Creatively Working</div>
-        </div>
+      <div class="about-fact">
+        <div class="fact-label">Education</div>
+        <div class="fact-value">UT Austin '25</div>
+      </div>
+      <div class="about-fact">
+        <div class="fact-label">Degree</div>
+        <div class="fact-value">MIS + Marketing</div>
+      </div>
+      <div class="about-fact">
+        <div class="fact-label">Status</div>
+        <div class="fact-value">Creatively Working</div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
  
 
   <!-- EXPLORE -->
