@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haleigh Nguyen — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9b88a; --gold-dim: #9e8e65;
+      --bg: #0e0e0e; --bg-2: #161616; --bg-3: #1e1e1e;
+      --line: #242424; --text: #f0ede6; --muted: #888; --faint: #555;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--gold); color: var(--bg); }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; border-bottom: 1px solid var(--line); background: rgba(14,14,14,0.88); backdrop-filter: blur(12px); }
+    .nav-logo { font-size: 13px; letter-spacing: 0.1em; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--text); }
+    .nav-cta { font-size: 12px; padding: 7px 18px; border: 1px solid var(--gold-dim); border-radius: 40px; color: var(--gold); text-decoration: none; letter-spacing: 0.06em; transition: background 0.2s, color 0.2s; }
+    .nav-cta:hover { background: var(--gold); color: var(--bg); }
+
+    /* HERO */
+    #hero { min-height: 100vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 1px solid var(--line); padding-top: 80px; }
+    .hero-left { padding: 72px 48px; border-right: 1px solid var(--line); display: flex; flex-direction: column; justify-content: center; }
+    .hero-status { display: inline-flex; align-items: center; gap: 8px; font-size: 11px; letter-spacing: 0.14em; color: var(--gold); margin-bottom: 28px; }
+    .status-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); animation: pulse 2.4s ease-in-out infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.3} }
+    .hero-heading { font-family: 'DM Serif Display', serif; font-size: clamp(48px, 5.5vw, 80px); line-height: 1.0; color: var(--text); margin-bottom: 24px; }
+    .hero-heading em { font-style: italic; color: var(--gold); }
+    .hero-sub { font-size: 13px; color: var(--muted); letter-spacing: 0.04em; line-height: 1.8; max-width: 360px; margin-bottom: 40px; }
+    .hero-actions { display: flex; gap: 14px; align-items: center; }
+    .btn-primary { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.08em; padding: 10px 24px; background: var(--gold); color: var(--bg); border: none; border-radius: 40px; cursor: pointer; text-decoration: none; transition: opacity 0.2s; }
+    .btn-primary:hover { opacity: 0.85; }
+    .btn-ghost { font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.08em; padding: 10px 24px; background: transparent; color: var(--muted); border: 1px solid var(--line); border-radius: 40px; cursor: pointer; text-decoration: none; transition: border-color 0.2s, color 0.2s; }
+    .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+    .hero-right { padding: 72px 48px; display: flex; flex-direction: column; justify-content: flex-end; gap: 32px; }
+    .hero-stat { border-top: 1px solid var(--line); padding-top: 20px; }
+    .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 42px; color: var(--text); line-height: 1; margin-bottom: 6px; }
+    .hero-stat-num span { color: var(--gold); }
+    .hero-stat-label { font-size: 11px; letter-spacing: 0.1em; color: var(--muted); }
+    .hero-scroll { margin-top: auto; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; display: flex; align-items: center; gap: 10px; }
+    .scroll-line { width: 40px; height: 1px; background: var(--faint); }
+
+    /* SECTIONS */
+    section { border-bottom: 1px solid var(--line); }
+    .section-header { display: flex; align-items: baseline; justify-content: space-between; padding: 36px 48px 0; margin-bottom: 40px; }
+    .section-label { font-size: 11px; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; }
+    .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(30px, 3.5vw, 48px); color: var(--text); margin-top: 10px; }
+    .section-count { font-size: 11px; color: var(--faint); letter-spacing: 0.1em; }
+
+  /* PROJECTS */
+#projects { padding-bottom: 0; }
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+/* Base card */
+.project-card {
+  padding: 36px 48px;
+  border-top: 1px solid var(--line);
+  border-right: 1px solid var(--line);
+  transition: background 0.2s;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+
+  /* FIX: makes image go to the right */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+
+.project-card:nth-child(even) { border-right: none; }
+
+.project-card:hover { background: var(--bg-2); }
+
+/* Text styles */
+.project-num {
+  font-size: 11px;
+  color: var(--faint);
+  letter-spacing: 0.12em;
+  margin-bottom: 20px;
+}
+
+.project-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 28px;
+  color: var(--text);
+  margin-bottom: 10px;
+  line-height: 1.2;
+}
+
+.project-desc {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.75;
+  margin-bottom: 20px;
+  max-width: 360px;
+}
+
+.project-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 24px;
+}
+
+.tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 4px 10px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  color: var(--faint);
+}
+
+.project-link {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--gold);
+}
+
+/* Featured (bigger + full width) */
+.project-card.featured {
+  grid-column: 1 / -1;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+  border-right: none;
+}
+
+.project-card.featured .project-title {
+  font-size: 38px;
+}
+
+/* Image styling (for ALL cards now) */
+.project-image {
+  background: var(--bg-3);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.project-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-card,
+  .project-card.featured {
+    grid-template-columns: 1fr;
+  }
+}
+    /* SKILLS */
+    #skills { padding-bottom: 64px; }
+    .skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); }
+    .skill-group { padding: 36px 48px; border-right: 1px solid var(--line); }
+    .skill-group:last-child { border-right: none; }
+    .skill-group-title { font-size: 11px; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+    .skill-list { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .skill-list li { font-size: 13px; color: var(--muted); display: flex; align-items: center; gap: 10px; transition: color 0.2s; }
+    .skill-list li::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--line); flex-shrink: 0; transition: background 0.2s; }
+    .skill-list li:hover { color: var(--text); }
+    .skill-list li:hover::before { background: var(--gold); }
+
+    /* ABOUT */
+    #about { display: grid; grid-template-columns: 1fr 1fr; }
+    .about-left { padding: 64px 48px; border-right: 1px solid var(--line); }
+    .about-right { padding: 64px 48px; display: flex; flex-direction: column; justify-content: space-between; }
+    .about-body { font-size: 14px; color: var(--muted); line-height: 1.85; margin-top: 32px; }
+    .about-body p + p { margin-top: 16px; }
+    .about-body strong { color: var(--text); font-weight: 500; }
+    .about-portrait { width: 100%; aspect-ratio: 3/4; background: var(--bg-3); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 11px; letter-spacing: 0.1em; margin-bottom: 24px; }
+    .about-portrait img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+    .about-facts { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+    .about-fact { background: var(--bg); padding: 16px; }
+    .fact-label { font-size: 10px; letter-spacing: 0.12em; color: var(--faint); text-transform: uppercase; margin-bottom: 6px; }
+    .fact-value { font-size: 13px; color: var(--text); }
+    .about-carousel { position: relative; width: 100%; aspect-ratio: 3/4; border-radius: 4px; overflow: hidden; background: var(--bg-3); border: 1px solid var(--line); margin-bottom: 24px; }
+    .carousel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity 0.5s ease; }
+    .carousel-slide.active { opacity: 1; }
+    .carousel-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(14,14,14,0.6); border: 1px solid rgba(240,237,230,0.15); color: var(--text); width: 36px; height: 36px; border-radius: 50%; cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center; transition: background 0.2s, border-color 0.2s; z-index: 2; }
+    .carousel-btn:hover { background: rgba(201,184,138,0.2); border-color: var(--gold-dim); color: var(--gold); }
+    .carousel-btn.prev { left: 10px; }
+    .carousel-btn.next { right: 10px; }
+    .carousel-dots { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); display: flex; gap: 6px; z-index: 2; }
+    .dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(240,237,230,0.3); cursor: pointer; transition: background 0.2s; border: none; padding: 0; }
+    .dot.active { background: var(--gold); }
+      
+    /* EXPLORE */
+    #explore { border-bottom: none; }
+    .explore-grid { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); }
+    .explore-card { padding: 40px 48px; border-right: 1px solid var(--line); text-decoration: none; color: inherit; display: block; transition: background 0.2s; position: relative; overflow: hidden; }
+    .explore-card:last-child { border-right: none; }
+    .explore-card:hover { background: var(--bg-2); }
+    .explore-card:hover .explore-arrow { transform: translate(4px, -4px); }
+    .explore-eyebrow { font-size: 10px; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+    .explore-title { font-family: 'DM Serif Display', serif; font-size: 30px; color: var(--text); margin-bottom: 12px; line-height: 1.1; }
+    .explore-title em { font-style: italic; }
+    .explore-desc { font-size: 13px; color: var(--muted); line-height: 1.75; margin-bottom: 28px; }
+    .explore-arrow { display: inline-block; font-size: 18px; color: var(--gold); transition: transform 0.2s; }
+
+    /* CONTACT STRIP */
+    #contact-strip { padding: 48px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--line); }
+    .contact-text { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--text); }
+    .contact-text em { font-style: italic; color: var(--gold); }
+    .contact-links { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .contact-link { font-size: 12px; padding: 9px 20px; border: 1px solid var(--line); border-radius: 40px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; transition: border-color 0.2s, color 0.2s; }
+    .contact-link:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: var(--faint); letter-spacing: 0.08em; }
+    .footer-made { font-size: 11px; color: var(--faint); }
+    .footer-made span { color: var(--gold); }
+
+    /* FADE IN */
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      #hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 100px 24px 40px; border-right: none; border-bottom: 1px solid var(--line); }
+      .hero-right { padding: 32px 24px 48px; flex-direction: row; flex-wrap: wrap; gap: 24px; }
+      .section-header { padding: 40px 24px 0; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .project-card { padding: 28px 24px; border-right: none; }
+      .project-card.featured { grid-template-columns: 1fr; }
+      .skills-grid { grid-template-columns: 1fr 1fr; }
+      .skill-group { padding: 24px; }
+      .skill-group:nth-child(even) { border-right: none; }
+      #about { grid-template-columns: 1fr; }
+      .about-left { padding: 40px 24px; border-right: none; border-bottom: 1px solid var(--line); }
+      .about-right { padding: 40px 24px; }
+      .explore-grid { grid-template-columns: 1fr; }
+      .explore-card { border-right: none; border-bottom: 1px solid var(--line); padding: 32px 24px; }
+      #contact-strip { flex-direction: column; gap: 24px; text-align: center; padding: 40px 24px; }
+      footer { padding: 20px 24px; flex-direction: column; gap: 8px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">Haleigh Nguyen <span>—</span> Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="#projects">work</a></li>
+      <li><a href="#skills">skills</a></li>
+      <li><a href="#about">about</a></li>
+      <li><a href="travel.html">travel</a></li>
+      <li><a href="art.html">art</a></li>
+      <li><a href="interests.html">interests</a></li>
+    </ul>
+    <a href="#contact-strip" class="nav-cta">let's talk →</a>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-left">
+      <div class="hero-status">
+        <div class="status-dot"></div>
+        open to new opportunities
+      </div>
+      <h1 class="hero-heading">
+        Strategy,<br><em>systems,</em><br>and story.
+      </h1>
+      <p class="hero-sub">
+        MIS grad from The University of Texas at Austin. Marketing & social media coordinator at Frontera Leadership Institute. I sit at the intersection of technology, connection, and impact.
+      </p>
+      <div class="hero-actions">
+        <a href="#projects" class="btn-primary">view my work</a>
+        <a href="#about" class="btn-ghost">about me</a>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-stat">
+        <div class="hero-stat-num">3<span>+</span></div>
+        <div class="hero-stat-label">years at McCombs Summer Institute</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">UT Austin<span>.</span></div>
+        <div class="hero-stat-label">MIS + Marketing · Austin, TX</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">HOU<span>.</span></div>
+        <div class="hero-stat-label">Based in Houston, TX</div>
+      </div>
+      <div class="hero-scroll">
+        <div class="scroll-line"></div>
+        scroll to explore
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+<section id="projects">
+  <div class="section-header">
+    <div>
+      <div class="section-label">01 — selected work</div>
+      <h2 class="section-title">Projects</h2>
+    </div>
+    <div class="section-count">03 projects</div>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Featured: Product Prodigy -->
+    <a href="https://peerpair.org" target="_blank" class="project-card featured fade-in">
+      <div class="project-content">
+        <div class="project-num">— 01 / featured</div>
+        <h3 class="project-title">Product Prodigy Institute</h3>
+        <p class="project-desc">
+          A program helping students learn about product management and entrepreneurship.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Product Strategy</span>
+          <span class="tag">Community</span>
+          <span class="tag">Leadership</span>
+        </div>
+        <div class="project-link">visit website →</div>
+      </div>
+
+      <div class="project-image">
+        <img src="images/product_prodigy.JPG"
+             alt="Product Prodigy Institute Team Innovation Nation"
+             onerror="this.parentElement.innerHTML='[ image ]'" />
+      </div>
+    </a>
+
+    <!-- Frontera -->
+    <a href="https://www.fronteraleadership.org" class="project-card fade-in">
+      <div class="project-content">
+        <div class="project-num">— 02</div>
+        <h3 class="project-title">Frontera Leadership Institute</h3>
+        <p class="project-desc">
+          Social media and marketing coordination for a Brownsville-based leadership nonprofit.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Social Media</span>
+          <span class="tag">Marketing</span>
+          <span class="tag">Content Strategy</span>
+        </div>
+        <div class="project-link">learn more →</div>
+      </div>
+
+      <div class="project-image">
+        <img src="images/frontera.JPG"
+             alt="Frontera Leadership Institute"
+             onerror="this.parentElement.innerHTML='[ image ]'" />
+      </div>
+    </a>
+
+    <!-- McCombs -->
+    <a href="https://www.mccombs.utexas.edu/undergraduate-programs/bba-business-options/mccombs-summer-institute/" class="project-card fade-in">
+      <div class="project-content">
+        <div class="project-num">— 03</div>
+        <h3 class="project-title">McCombs Summer Institute</h3>
+        <p class="project-desc">
+          Supporting UT Austin’s McCombs Summer Institute — helping non-business students earn their business minor in one summer.
+        </p>
+        <div class="project-tags">
+          <span class="tag">Education</span>
+          <span class="tag">Operations</span>
+          <span class="tag">Mentorship</span>
+        </div>
+        <div class="project-link">learn more →</div>
+      </div>
+
+      <div class="project-image">
+        <img src="images/msi2025.jpeg"
+             alt="McCombs Summer Institute"
+             onerror="this.parentElement.innerHTML='[ image ]'" />
+      </div>
+    </a>
+
+  </div>
+</section>
+
+  <!-- SKILLS -->
+  <section id="skills">
+    <div class="section-header">
+      <div>
+        <div class="section-label">02 — capabilities</div>
+        <h2 class="section-title">Skills</h2>
+      </div>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Marketing</div>
+        <ul class="skill-list">
+          <li>Social Media Strategy</li>
+          <li>Content Creation</li>
+          <li>Brand Voice</li>
+          <li>Campaign Planning</li>
+          <li>Audience Growth</li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Technology</div>
+        <ul class="skill-list">
+          <li>Management Info Systems</li>
+          <li>Data Analysis</li>
+          <li>CRM Tools</li>
+          <li>Marketing Analytics</li>
+          <li>Web Basics</li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Strategy</div>
+        <ul class="skill-list">
+          <li>Product Thinking</li>
+          <li>Market Research</li>
+          <li>Storytelling</li>
+          <li>Community Building</li>
+          <li>Leadership</li>
+        </ul>
+      </div>
+      <div class="skill-group fade-in">
+        <div class="skill-group-title">Tools</div>
+        <ul class="skill-list">
+          <li>Canva / Adobe Suite</li>
+          <li>Meta Business Suite</li>
+          <li>Google Analytics</li>
+          <li>Notion / Airtable</li>
+          <li>Microsoft Office</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+<section id="about">
+  <div class="about-left fade-in">
+    <div class="section-label">03 — the person</div>
+    <h2 class="section-title">About me</h2>
+    <div class="about-body">
+      <p>
+        Hello, my name is <strong>Haleigh Nguyen</strong> — a Houston-based marketing and strategy professional with a degree in <strong>Management Information Systems</strong> from The University of Texas at Austin, where I also minored in <strong>Marketing</strong>.
+      </p>
+      <p>
+        I spent three years with the <strong>McCombs Summer Institute</strong>, supporting a program that helps ambitious non-business majors earn their business minor over the summer in an intensive program. These days I work as a <strong>Social Media & Marketing Coordinator</strong> at Frontera Leadership Institute, where I help shape how a mission-driven organization tells its story online.
+      </p>
+      <p>
+        I'm drawn to work that sits at the crossroads of <strong>technology, communication, and people</strong> — whether that's building a content strategy, thinking through product, or helping a community find its voice.
+      </p>
+      <p>
+        Outside of work, I love to travel, make things, and explore whatever's caught my attention lately. Check out the pages below to see more of that side of things.
+      </p>
+    </div>
+  </div>
+  <div class="about-right fade-in">
+    <div class="about-carousel" id="about-carousel">
+      <img src="images/headshot.jpeg" alt="Photo 1" class="carousel-slide active" onerror="this.style.display='none'" />
+      <img src="images/grad.jpeg" alt="Photo 2" class="carousel-slide" onerror="this.style.display='none'" />
+      <button class="carousel-btn prev" id="carousel-prev">&#8592;</button>
+      <button class="carousel-btn next" id="carousel-next">&#8594;</button>
+      <div class="carousel-dots" id="carousel-dots"></div>
+    </div>
+    <div class="about-facts">
+      <div class="about-fact">
+        <div class="fact-label">Based in</div>
+        <div class="fact-value">Houston, TX</div>
+      </div>
+      <div class="about-fact">
+        <div class="fact-label">Education</div>
+        <div class="fact-value">UT Austin '25</div>
+      </div>
+      <div class="about-fact">
+        <div class="fact-label">Degree</div>
+        <div class="fact-value">MIS + Marketing</div>
+      </div>
+      <div class="about-fact">
+        <div class="fact-label">Status</div>
+        <div class="fact-value">Creatively Working</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+
+  <!-- EXPLORE -->
+  <section id="explore">
+    <div class="section-header">
+      <div>
+        <div class="section-label">04 — beyond the résumé</div>
+        <h2 class="section-title">Explore more</h2>
+      </div>
+    </div>
+    <div class="explore-grid">
+      <a href="travel.html" class="explore-card fade-in">
+        <div class="explore-eyebrow">wandering</div>
+        <div class="explore-title"><em>Travel</em></div>
+        <p class="explore-desc">Places I've been, things I've seen. A running log of trips, cities, and the moments in between.</p>
+        <div class="explore-arrow">→</div>
+      </a>
+      <a href="art.html" class="explore-card fade-in">
+        <div class="explore-eyebrow">making things</div>
+        <div class="explore-title"><em>Art &</em><br>Creativity</div>
+        <p class="explore-desc">Creative work outside the office — illustrations, designs, experiments, and anything I've made for the sake of making it.</p>
+        <div class="explore-arrow">→</div>
+      </a>
+      <a href="interests.html" class="explore-card fade-in">
+        <div class="explore-eyebrow">rabbit holes</div>
+        <div class="explore-title"><em>Interests</em></div>
+        <p class="explore-desc">Books, music, ideas, and things I can't stop thinking about. The stuff that doesn't fit anywhere else.</p>
+        <div class="explore-arrow">→</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTACT STRIP -->
+  <div id="contact-strip">
+    <div class="contact-text">Let's build something <em>together.</em></div>
+    <div class="contact-links">
+      <a href="mailto:haleigh@lmnts.org" class="contact-link">haleigh@lmnts.org</a>
+      <a href="https://www.linkedin.com/in/haleigh-nguyen" target="_blank" class="contact-link">LinkedIn</a>
+      <a href="https://github.com/Haleigh-Nguyen" target="_blank" class="contact-link">GitHub</a>
+      <a href="Haleigh Nguyen - Resume 2025.pdf" class="contact-link">Résumé ↓</a>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-copy">© 2026 Haleigh Nguyen. All rights reserved.</div>
+    <div class="footer-made">built with <span>♥</span> · Houston, TX</div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // Fade-in observer
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => entry.target.classList.add('visible'), i * 80);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+      // Carousel
+      const slides = Array.from(document.querySelectorAll('#about-carousel .carousel-slide'));
+      const dotsContainer = document.getElementById('carousel-dots');
+      const prevBtn = document.getElementById('carousel-prev');
+      const nextBtn = document.getElementById('carousel-next');
+      let current = 0;
+      let timer;
+
+      // Build dots
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.className = 'dot' + (i === 0 ? ' active' : '');
+        dot.addEventListener('click', () => goTo(i));
+        dotsContainer.appendChild(dot);
+      });
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        dotsContainer.children[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dotsContainer.children[current].classList.add('active');
+        resetTimer();
+      }
+
+      function resetTimer() {
+        clearInterval(timer);
+        timer = setInterval(() => goTo(current + 1), 3000);
+      }
+
+      prevBtn.addEventListener('click', () => goTo(current - 1));
+      nextBtn.addEventListener('click', () => goTo(current + 1));
+
+      resetTimer();
+    });
+  </script>
