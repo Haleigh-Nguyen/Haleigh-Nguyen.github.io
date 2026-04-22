@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Interests — Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9b88a; --gold-dim: #9e8e65;
+      --bg: #0e0e0e; --bg-2: #161616; --bg-3: #1e1e1e;
+      --line: #242424; --text: #f0ede6; --muted: #888; --faint: #555;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--gold); color: var(--bg); }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; border-bottom: 1px solid var(--line); background: rgba(14,14,14,0.88); backdrop-filter: blur(12px); }
+    .nav-logo { font-size: 13px; letter-spacing: 0.1em; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); }
+    .nav-back { font-size: 12px; padding: 7px 18px; border: 1px solid var(--line); border-radius: 40px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; transition: border-color 0.2s, color 0.2s; }
+    .nav-back:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+    /* PAGE HERO */
+    .page-hero { padding: 140px 48px 72px; border-bottom: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: end; }
+    .page-eyebrow { font-size: 11px; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+    .page-title { font-family: 'DM Serif Display', serif; font-size: clamp(52px, 7vw, 96px); line-height: 0.95; color: var(--text); }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-intro { font-size: 14px; color: var(--muted); line-height: 1.85; }
+    .page-intro strong { color: var(--text); font-weight: 500; }
+
+    /* INTEREST CATEGORIES */
+    .interests-body { display: grid; grid-template-columns: 1fr 1fr; }
+
+    .interest-block { padding: 52px 48px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .interest-block:nth-child(even) { border-right: none; }
+    .interest-block:nth-last-child(-n+2) { border-bottom: none; }
+
+    .interest-icon { font-size: 24px; margin-bottom: 20px; }
+    .interest-title { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--text); margin-bottom: 14px; line-height: 1.1; }
+    .interest-title em { font-style: italic; color: var(--gold); }
+    .interest-body { font-size: 13px; color: var(--muted); line-height: 1.85; margin-bottom: 24px; }
+    .interest-body strong { color: var(--text); font-weight: 500; }
+    .interest-body p + p { margin-top: 12px; }
+
+    /* ITEM LIST */
+    .item-list { display: flex; flex-direction: column; gap: 0; }
+    .list-item { display: flex; align-items: baseline; justify-content: space-between; padding: 10px 0; border-top: 1px solid var(--line); }
+    .list-item:last-child { border-bottom: 1px solid var(--line); }
+    .list-item-name { font-size: 13px; color: var(--text); }
+    .list-item-detail { font-size: 11px; color: var(--faint); }
+
+    /* CURRENTLY SECTION */
+    .currently { border-top: 1px solid var(--line); }
+    .currently-header { padding: 36px 48px 0; margin-bottom: 0; }
+    .currently-label { font-size: 11px; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; margin-bottom: 10px; }
+    .currently-title { font-family: 'DM Serif Display', serif; font-size: clamp(28px, 3vw, 42px); color: var(--text); margin-bottom: 0; }
+    .currently-grid { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); margin-top: 32px; }
+    .currently-item { padding: 28px 48px; border-right: 1px solid var(--line); }
+    .currently-item:last-child { border-right: none; }
+    .cur-label { font-size: 10px; letter-spacing: 0.14em; color: var(--faint); text-transform: uppercase; margin-bottom: 12px; }
+    .cur-title { font-size: 14px; color: var(--text); margin-bottom: 4px; line-height: 1.4; }
+    .cur-sub { font-size: 12px; color: var(--muted); }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: var(--faint); }
+    .footer-back { font-size: 11px; color: var(--gold); text-decoration: none; }
+    .footer-back:hover { text-decoration: underline; }
+
+    /* FADE IN */
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 110px 24px 48px; grid-template-columns: 1fr; gap: 24px; }
+      .page-title { font-size: 56px; }
+      .interests-body { grid-template-columns: 1fr; }
+      .interest-block { padding: 40px 24px; border-right: none; border-bottom: 1px solid var(--line); }
+      .interest-block:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .interest-block:last-child { border-bottom: none; }
+      .currently-header { padding: 32px 24px 0; }
+      .currently-grid { grid-template-columns: 1fr 1fr; }
+      .currently-item { padding: 20px 24px; }
+      .currently-item:nth-child(even) { border-right: none; }
+      footer { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">YN <span>—</span> Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="index.html">home</a></li>
+      <li><a href="travel.html">travel</a></li>
+      <li><a href="art.html">art</a></li>
+      <li><a href="interests.html" class="active">interests</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← back home</a>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div>
+      <div class="page-eyebrow">rabbit holes</div>
+      <h1 class="page-title">Things I<br><em>love.</em></h1>
+    </div>
+    <p class="page-intro">
+      The stuff that lives outside a job description. <strong>Music, books, ideas, places, and whatever I've been thinking about lately.</strong> This page is less curated than the rest — and that's exactly the point.
+    </p>
+  </div>
+
+  <!-- INTERESTS GRID -->
+  <div class="interests-body">
+
+    <!-- MUSIC -->
+    <div class="interest-block fade-in">
+      <div class="interest-title">Music</div>
+      <div class="interest-body">
+        <p>
+          Music is always on. I'll listen to almost anything depending on the mood — <strong>add your genres here</strong>. There's something about finding a song that perfectly matches a specific feeling that never gets old.
+        </p>
+        <p>
+          Some artists I keep coming back to, some albums I've had on repeat recently:
+        </p>
+      </div>
+      <div class="item-list">
+        <div class="list-item"><span class="list-item-name">Artist / Album Name</span><span class="list-item-detail">genre</span></div>
+        <div class="list-item"><span class="list-item-name">Artist / Album Name</span><span class="list-item-detail">genre</span></div>
+        <div class="list-item"><span class="list-item-name">Artist / Album Name</span><span class="list-item-detail">genre</span></div>
+        <div class="list-item"><span class="list-item-name">Artist / Album Name</span><span class="list-item-detail">genre</span></div>
+      </div>
+    </div>
+
+    <!-- READING -->
+    <div class="interest-block fade-in">
+      <div class="interest-title"><em>Reading</em></div>
+      <div class="interest-body">
+        <p>
+          I try to read across topics — <strong>business, design, fiction, whatever catches my eye.</strong> Some books I keep recommending to people, some I'm still working through.
+        </p>
+        <p>
+          A few that have stuck with me:
+        </p>
+      </div>
+      <div class="item-list">
+        <div class="list-item"><span class="list-item-name">Book Title</span><span class="list-item-detail">Author · Year</span></div>
+        <div class="list-item"><span class="list-item-name">Book Title</span><span class="list-item-detail">Author · Year</span></div>
+        <div class="list-item"><span class="list-item-name">Book Title</span><span class="list-item-detail">Author · Year</span></div>
+        <div class="list-item"><span class="list-item-name">Book Title</span><span class="list-item-detail">Author · Year</span></div>
+      </div>
+    </div>
+
+    <!-- FOOD / HOUSTON -->
+    <div class="interest-block fade-in">
+      <div class="interest-title">Houston<br><em>& Food</em></div>
+      <div class="interest-body">
+        <p>
+          Houston is genuinely one of the best food cities in the country and I will die on that hill. <strong>The diversity of cuisine here is unmatched</strong> — from Tex-Mex to Vietnamese to everything in between.
+        </p>
+        <p>
+          Some personal favorites worth knowing about:
+        </p>
+      </div>
+      <div class="item-list">
+        <div class="list-item"><span class="list-item-name">Restaurant / Place</span><span class="list-item-detail">neighborhood</span></div>
+        <div class="list-item"><span class="list-item-name">Restaurant / Place</span><span class="list-item-detail">neighborhood</span></div>
+        <div class="list-item"><span class="list-item-name">Restaurant / Place</span><span class="list-item-detail">neighborhood</span></div>
+        <div class="list-item"><span class="list-item-name">Restaurant / Place</span><span class="list-item-detail">neighborhood</span></div>
+      </div>
+    </div>
+
+    <!-- RANDOM INTERESTS -->
+    <div class="interest-block fade-in">
+      <div class="interest-title">Other<br><em>things</em></div>
+      <div class="interest-body">
+        <p>
+          A catch-all for whatever else is taking up mental space. <strong>Replace this with your actual interests</strong> — fitness, gaming, film, sports, podcasts, whatever applies. The more specific, the better.
+        </p>
+        <p>
+          A few things I tend to talk about unprompted:
+        </p>
+      </div>
+      <div class="item-list">
+        <div class="list-item"><span class="list-item-name">Interest or hobby</span><span class="list-item-detail">context</span></div>
+        <div class="list-item"><span class="list-item-name">Interest or hobby</span><span class="list-item-detail">context</span></div>
+        <div class="list-item"><span class="list-item-name">Interest or hobby</span><span class="list-item-detail">context</span></div>
+        <div class="list-item"><span class="list-item-name">Interest or hobby</span><span class="list-item-detail">context</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CURRENTLY -->
+  <div class="currently fade-in">
+    <div class="currently-header">
+      <div class="currently-label">right now</div>
+      <h2 class="currently-title">Currently</h2>
+    </div>
+    <div class="currently-grid">
+      <div class="currently-item">
+        <div class="cur-label">Reading</div>
+        <div class="cur-title">Book Title Here</div>
+        <div class="cur-sub">Author Name</div>
+      </div>
+      <div class="currently-item">
+        <div class="cur-label">Listening to</div>
+        <div class="cur-title">Album or Artist</div>
+        <div class="cur-sub">Genre / vibe</div>
+      </div>
+      <div class="currently-item">
+        <div class="cur-label">Thinking about</div>
+        <div class="cur-title">A topic or idea taking up space in your head</div>
+        <div class="cur-sub">ongoing</div>
+      </div>
+      <div class="currently-item">
+        <div class="cur-label">Working on</div>
+        <div class="cur-title">A personal project or goal</div>
+        <div class="cur-sub">in progress</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-copy">© 2026 Your Name</div>
+    <a href="index.html" class="footer-back">← back to portfolio</a>
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>

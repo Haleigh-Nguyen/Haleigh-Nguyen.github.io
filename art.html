@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Art & Creativity — Your Name</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --gold: #c9b88a; --gold-dim: #9e8e65;
+      --bg: #0e0e0e; --bg-2: #161616; --bg-3: #1e1e1e;
+      --line: #242424; --text: #f0ede6; --muted: #888; --faint: #555;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--bg); color: var(--text); font-family: 'DM Mono', monospace; font-size: 15px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+    ::selection { background: var(--gold); color: var(--bg); }
+    ::-webkit-scrollbar { width: 4px; } ::-webkit-scrollbar-track { background: var(--bg); } ::-webkit-scrollbar-thumb { background: var(--line); border-radius: 2px; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; justify-content: space-between; align-items: center; padding: 18px 48px; border-bottom: 1px solid var(--line); background: rgba(14,14,14,0.88); backdrop-filter: blur(12px); }
+    .nav-logo { font-size: 13px; letter-spacing: 0.1em; color: var(--text); text-decoration: none; }
+    .nav-logo span { color: var(--gold); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 12px; letter-spacing: 0.08em; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-links a.active { color: var(--text); }
+    .nav-back { font-size: 12px; padding: 7px 18px; border: 1px solid var(--line); border-radius: 40px; color: var(--muted); text-decoration: none; letter-spacing: 0.06em; transition: border-color 0.2s, color 0.2s; }
+    .nav-back:hover { border-color: var(--gold-dim); color: var(--gold); }
+
+    /* PAGE HERO */
+    .page-hero { padding: 140px 48px 72px; border-bottom: 1px solid var(--line); }
+    .page-eyebrow { font-size: 11px; letter-spacing: 0.16em; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+    .page-title { font-family: 'DM Serif Display', serif; font-size: clamp(52px, 7vw, 96px); line-height: 0.95; color: var(--text); margin-bottom: 28px; }
+    .page-title em { font-style: italic; color: var(--gold); }
+    .page-intro { font-size: 14px; color: var(--muted); line-height: 1.85; max-width: 560px; }
+    .page-intro strong { color: var(--text); font-weight: 500; }
+
+    /* FILTER TABS */
+    .filter-bar { display: flex; gap: 0; border-bottom: 1px solid var(--line); padding: 0 48px; overflow-x: auto; }
+    .filter-tab { font-size: 12px; letter-spacing: 0.08em; color: var(--faint); padding: 16px 24px 14px; border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap; transition: color 0.2s, border-color 0.2s; background: none; border-top: none; border-left: none; border-right: none; font-family: 'DM Mono', monospace; }
+    .filter-tab:hover { color: var(--text); }
+    .filter-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+    /* GALLERY MASONRY-STYLE */
+    .gallery-section { padding: 48px; }
+    .gallery-label { font-size: 11px; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; margin-bottom: 24px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 48px; }
+    .gallery-item { background: var(--bg-3); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; cursor: pointer; transition: border-color 0.2s; }
+    .gallery-item:hover { border-color: var(--gold-dim); }
+    .gallery-item.span-2 { grid-column: span 2; }
+    .gallery-img { width: 100%; aspect-ratio: 1/1; object-fit: cover; display: block; transition: transform 0.4s ease; }
+    .gallery-item.span-2 .gallery-img { aspect-ratio: 2/1; }
+    .gallery-item:hover .gallery-img { transform: scale(1.02); }
+    .gallery-img-placeholder { width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 11px; letter-spacing: 0.1em; }
+    .gallery-item.span-2 .gallery-img-placeholder { aspect-ratio: 2/1; }
+    .gallery-meta { padding: 14px 16px; }
+    .gallery-meta-title { font-size: 13px; color: var(--text); margin-bottom: 4px; }
+    .gallery-meta-sub { font-size: 11px; color: var(--faint); display: flex; justify-content: space-between; }
+    .gallery-meta-tag { font-size: 10px; padding: 2px 8px; border: 1px solid var(--line); border-radius: 20px; color: var(--faint); }
+
+    /* HORIZONTAL SCROLL ROW (for sketches / WIP) */
+    .scroll-row-wrap { padding: 0 48px 48px; border-top: 1px solid var(--line); padding-top: 40px; }
+    .scroll-row-label { font-size: 11px; letter-spacing: 0.14em; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+    .scroll-row { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; }
+    .scroll-row::-webkit-scrollbar { height: 3px; } .scroll-row::-webkit-scrollbar-thumb { background: var(--line); }
+    .scroll-item { flex-shrink: 0; width: 220px; background: var(--bg-3); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+    .scroll-item-img { width: 220px; height: 220px; object-fit: cover; display: block; }
+    .scroll-item-placeholder { width: 220px; height: 220px; display: flex; align-items: center; justify-content: center; color: var(--faint); font-size: 11px; }
+    .scroll-item-label { padding: 10px 12px; font-size: 12px; color: var(--muted); }
+
+    /* FOOTER */
+    footer { padding: 24px 48px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; align-items: center; }
+    .footer-copy { font-size: 11px; color: var(--faint); }
+    .footer-back { font-size: 11px; color: var(--gold); text-decoration: none; }
+    .footer-back:hover { text-decoration: underline; }
+
+    /* FADE IN */
+    .fade-in { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+    .fade-in.visible { opacity: 1; transform: none; }
+
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .page-hero { padding: 110px 24px 48px; }
+      .filter-bar { padding: 0 24px; }
+      .gallery-section { padding: 32px 24px; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item.span-2 { grid-column: span 1; }
+      .gallery-item.span-2 .gallery-img, .gallery-item.span-2 .gallery-img-placeholder { aspect-ratio: 1/1; }
+      .scroll-row-wrap { padding: 32px 24px 32px; }
+      footer { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html" class="nav-logo">YN <span>—</span> Portfolio</a>
+    <ul class="nav-links">
+      <li><a href="index.html">home</a></li>
+      <li><a href="travel.html">travel</a></li>
+      <li><a href="art.html" class="active">art</a></li>
+      <li><a href="interests.html">interests</a></li>
+    </ul>
+    <a href="index.html" class="nav-back">← back home</a>
+  </nav>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="page-eyebrow">making things</div>
+    <h1 class="page-title">Art &<br><em>Creativity.</em></h1>
+    <p class="page-intro">
+      This is where the resume ends and the rest begins. Creative work made for the joy of making — <strong>illustrations, designs, experiments, and anything in between.</strong> Not everything here is polished, and that's intentional.
+    </p>
+  </div>
+
+  <!-- FILTER TABS -->
+  <div class="filter-bar">
+    <button class="filter-tab active" onclick="filterGallery('all', this)">All</button>
+    <button class="filter-tab" onclick="filterGallery('illustration', this)">Illustration</button>
+    <button class="filter-tab" onclick="filterGallery('design', this)">Design</button>
+    <button class="filter-tab" onclick="filterGallery('photography', this)">Photography</button>
+    <button class="filter-tab" onclick="filterGallery('other', this)">Other</button>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="gallery-section fade-in">
+    <div class="gallery-label">Selected works</div>
+    <div class="gallery-grid" id="gallery">
+
+      <div class="gallery-item span-2" data-category="illustration">
+        <img src="images/art/piece1.jpg" alt="Art piece 1" class="gallery-img" onerror="this.style.display='none'"/>
+        <div class="gallery-img-placeholder" style="aspect-ratio:2/1">[ featured piece ]</div>
+        <div class="gallery-meta">
+          <div class="gallery-meta-title">Piece Title</div>
+          <div class="gallery-meta-sub"><span>2024</span><span class="gallery-meta-tag">Illustration</span></div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="design">
+        <img src="images/art/piece2.jpg" alt="" class="gallery-img" onerror="this.style.display='none'"/>
+        <div class="gallery-img-placeholder">[ piece ]</div>
+        <div class="gallery-meta">
+          <div class="gallery-meta-title">Piece Title</div>
+          <div class="gallery-meta-sub"><span>2024</span><span class="gallery-meta-tag">Design</span></div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="photography">
+        <img src="images/art/piece3.jpg" alt="" class="gallery-img" onerror="this.style.display='none'"/>
+        <div class="gallery-img-placeholder">[ piece ]</div>
+        <div class="gallery-meta">
+          <div class="gallery-meta-title">Piece Title</div>
+          <div class="gallery-meta-sub"><span>2023</span><span class="gallery-meta-tag">Photography</span></div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="illustration">
+        <img src="images/art/piece4.jpg" alt="" class="gallery-img" onerror="this.style.display='none'"/>
+        <div class="gallery-img-placeholder">[ piece ]</div>
+        <div class="gallery-meta">
+          <div class="gallery-meta-title">Piece Title</div>
+          <div class="gallery-meta-sub"><span>2023</span><span class="gallery-meta-tag">Illustration</span></div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="design">
+        <img src="images/art/piece5.jpg" alt="" class="gallery-img" onerror="this.style.display='none'"/>
+        <div class="gallery-img-placeholder">[ piece ]</div>
+        <div class="gallery-meta">
+          <div class="gallery-meta-title">Piece Title</div>
+          <div class="gallery-meta-sub"><span>2023</span><span class="gallery-meta-tag">Design</span></div>
+        </div>
+      </div>
+
+      <div class="gallery-item" data-category="other">
+        <img src="images/art/piece6.jpg" alt="" class="gallery-img" onerror="this.style.display='none'"/>
+        <div class="gallery-img-placeholder">[ piece ]</div>
+        <div class="gallery-meta">
+          <div class="gallery-meta-title">Piece Title</div>
+          <div class="gallery-meta-sub"><span>2022</span><span class="gallery-meta-tag">Other</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SKETCHES / WIP ROW -->
+  <div class="scroll-row-wrap fade-in">
+    <div class="scroll-row-label">Sketches & work in progress</div>
+    <div class="scroll-row">
+      <div class="scroll-item">
+        <img src="images/art/wip1.jpg" alt="" class="scroll-item-img" onerror="this.style.display='none'"/>
+        <div class="scroll-item-placeholder">[ sketch ]</div>
+        <div class="scroll-item-label">WIP / sketch title</div>
+      </div>
+      <div class="scroll-item">
+        <img src="images/art/wip2.jpg" alt="" class="scroll-item-img" onerror="this.style.display='none'"/>
+        <div class="scroll-item-placeholder">[ sketch ]</div>
+        <div class="scroll-item-label">WIP / sketch title</div>
+      </div>
+      <div class="scroll-item">
+        <img src="images/art/wip3.jpg" alt="" class="scroll-item-img" onerror="this.style.display='none'"/>
+        <div class="scroll-item-placeholder">[ sketch ]</div>
+        <div class="scroll-item-label">WIP / sketch title</div>
+      </div>
+      <div class="scroll-item">
+        <img src="images/art/wip4.jpg" alt="" class="scroll-item-img" onerror="this.style.display='none'"/>
+        <div class="scroll-item-placeholder">[ sketch ]</div>
+        <div class="scroll-item-label">WIP / sketch title</div>
+      </div>
+      <div class="scroll-item">
+        <img src="images/art/wip5.jpg" alt="" class="scroll-item-img" onerror="this.style.display='none'"/>
+        <div class="scroll-item-placeholder">[ sketch ]</div>
+        <div class="scroll-item-label">WIP / sketch title</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-copy">© 2026 Your Name</div>
+    <a href="index.html" class="footer-back">← back to portfolio</a>
+  </footer>
+
+  <script>
+    // Filter gallery
+    function filterGallery(category, btn) {
+      document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+      btn.classList.add('active');
+      document.querySelectorAll('.gallery-item').forEach(item => {
+        const match = category === 'all' || item.dataset.category === category;
+        item.style.display = match ? '' : 'none';
+        // Reset span-2 on filter to avoid layout gaps
+        if (category !== 'all') item.classList.remove('span-2');
+        else if (item.dataset.featured) item.classList.add('span-2');
+      });
+    }
+    // Mark featured items for restore
+    document.querySelectorAll('.gallery-item.span-2').forEach(el => el.dataset.featured = 'true');
+
+    // Fade in observer
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
